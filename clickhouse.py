@@ -119,7 +119,7 @@ def create_table(source, fields):
     if source == 'hits':
         if ('ym:pv:date' in fields) and ('ym:pv:clientID' in fields):
             engine = '''MergeTree()
-            ORDER BY (Date, intHash32(ClientID))
+            ORDER BY (intHash32(ClientID), Date)
             PARTITION BY Date
             PRIMARY KEY intHash32(ClientID)'''
         else:
@@ -128,7 +128,7 @@ def create_table(source, fields):
     if source == 'visits':
         if ('ym:s:date' in fields) and ('ym:s:clientID' in fields):
             engine = '''MergeTree()
-            ORDER BY (Date, intHash32(ClientID))
+            ORDER BY (intHash32(ClientID), Date)
             PARTITION BY Date
             PRIMARY KEY intHash32(ClientID)'''
         else:
